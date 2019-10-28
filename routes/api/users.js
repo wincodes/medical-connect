@@ -12,7 +12,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateloginInput = require("../../validation/login")
 
 /*
-@route  POST api/user/register
+@route  POST api/users/register
 @desc   to register a new user
 @access     Public
 
