@@ -54,15 +54,16 @@ export const loginUser = userData => dispatch => {
       })
 
     })
-    .catch(err => dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data
-    }));
-
-  dispatch({
-    type: LOADING,
-    payload: false
-  })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+      dispatch({
+        type: LOADING,
+        payload: false
+      })
+    });
 };
 
 export const setCurrentUser = (decoded) => {
@@ -70,4 +71,16 @@ export const setCurrentUser = (decoded) => {
     type: SET_CURRENT_USER,
     payload: decoded
   }
+}
+
+//log out user action
+export const logoutUser = () => dispatch => {
+  //remove the toke from localstorage
+  localStorage.removeItem('jwtToken');
+
+  //remove auth header
+  setAuthToken(false)
+
+  //set current user to empty object
+  dispatch(setCurrentUser({}));
 }
