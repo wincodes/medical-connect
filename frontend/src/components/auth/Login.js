@@ -1,109 +1,105 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types';
-import { loginUser  } from '../../actions/authActions'
-import classnames from 'classnames'
+import PropTypes from 'prop-types'
+import { loginUser } from '../../actions/authActions'
+import Loading from '../Loading'
+import TextFieldGroup from '../common/TextFieldGroup'
 
 class Login extends Component {
-  constructor(){
-    super();
+	constructor() {
+		super()
 
-    this.state = {
-      email: '',
-      password: '',
-      errors: {}
-    };
+		this.state = {
+			email: '',
+			password: '',
+			errors: {},
+			loading: false
+		}
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-	};
+		this.onChange = this.onChange.bind(this)
+		this.onSubmit = this.onSubmit.bind(this)
+	}
 
-	componentDidMount(){
-		if(this.props.auth.isAuthenticated){
+	componentDidMount() {
+		if (this.props.auth.isAuthenticated) {
 			this.props.history.push('/dashboard')
 		}
 	}
-	
-	componentWillReceiveProps(nextProps){
-		if(nextProps.auth.isAuthenticated){
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.auth.isAuthenticated) {
 			this.props.history.push('/dashboard')
 		}
-		if(nextProps){
-			this.setState({errors: nextProps.errors})
+		if (nextProps) {
+			this.setState({ errors: nextProps.errors, loading: false })
 		}
 	}
 
-  onChange(e){
-    this.setState({ [e.target.name]: e.target.value })
-  }
+	onChange(e) {
+		this.setState({ [e.target.name]: e.target.value })
+	}
 
-  onSubmit(e){
-    e.preventDefault();
-    
-    const loginDetails = {
-      email: this.state.email,
-      password: this.state.password
-    }
-    
-   this.props.loginUser(loginDetails)
-  }
+	onSubmit(e) {
+		e.preventDefault()
+		this.setState({ loading: true })
+
+		const loginDetails = {
+			email: this.state.email,
+			password: this.state.password
+		}
+
+		this.props.loginUser(loginDetails)
+	}
 
 	render() {
-		const { errors } = this.state
+		const { errors, loading } = this.state
 		return (
-			<div className="login">
-				<div className="container">
-					<div className="row">
-						<div className="col-md-8 m-auto">
-							<h1 className="display-4 text-center">Log In</h1>
-							<p className="lead text-center">
+			<div className='login'>
+				<div className='container'>
+					<div className='row'>
+						<div className='col-md-8 m-auto'>
+							{loading && <Loading />}
+							<h1 className='display-4 text-center'>Log In</h1>
+							<p className='lead text-center'>
 								Sign in to your Medical Connect account
 							</p>
-							<form onSubmit={ this.onSubmit }>
-								<div className="form-group">
-									<input
-										type="email"
-										className={classnames('form-control form-control-lg', {
-											'is-invalid': errors.email
-										})}
-										placeholder="Email Address"
-                    name="email"
-                    value={ this.state.email }
-                    onChange={ this.onChange }
-									/>
-									{errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
-								</div>
-								<div className="form-group">
-									<input
-										type="password"
-										className={classnames('form-control form-control-lg', {
-											'is-invalid': errors.password
-										})}
-										placeholder="Password"
-                    name="password"
-                    value={ this.state.password }
-                    onChange={ this.onChange }
-									/>
-									{errors.password  && (<div className="invalid-feedback">{errors.password }</div>)}
-								</div>
-								<input type="submit" className="btn btn-info btn-block mt-4" />
+							<form onSubmit={this.onSubmit}>
+								<TextFieldGroup
+									type='email'
+									placeholder='Email Address'
+									name='email'
+									value={this.state.email}
+									onChange={this.onChange}
+									error={errors.email}
+								/>
+								
+								<TextFieldGroup
+									type='password'
+									placeholder='password'
+									name='password'
+									value={this.state.password}
+									onChange={this.onChange}
+									error={errors.password}
+								/>
+								
+								<input type='submit' className='btn btn-info btn-block mt-4' />
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
-		);
+		)
 	}
 }
 
 Login.protoTypes = {
 	loginUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
-	errors: PropTypes.object.isRequired 
+	errors: PropTypes.object.isRequired
 }
 
 const mapStateToprops = state => ({
 	auth: state.auth,
 	errors: state.errors
 })
-export default connect(mapStateToprops, { loginUser })(Login);
+export default connect(mapStateToprops, { loginUser })(Login)

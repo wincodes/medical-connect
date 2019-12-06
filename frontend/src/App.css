@@ -45,10 +45,11 @@ img {
   background-color: rgb(21, 32, 43);
 }
 .loading {
+  margin: auto;
+  z-index: 1;
   position: fixed;
   left: 45%;
   top: 35%;
-  z-index: 1;
 }
 
 .router-component{

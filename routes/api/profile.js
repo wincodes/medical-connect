@@ -113,14 +113,11 @@ router.post(
 		const profileFields = {};
 		profileFields.user = req.user.id;
 		if (req.body.handle) profileFields.handle = req.body.handle;
-		if (req.body.hospital) profileFields.hospital = req.body.hospital;
+		if (req.body.workPlace) profileFields.workPlace = req.body.workPlace;
 		if (req.body.website) profileFields.website = req.body.website;
 		if (req.body.location) profileFields.location = req.body.location;
 		if (req.body.bio) profileFields.bio = req.body.bio;
-
-		if (typeof req.body.role !== "undefined") {
-			profileFields.role = req.body.role.split(",");
-		}
+		if (req.body.status) profileFields.status = req.body.status;
 
 		profileFields.social = {};
 		if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
@@ -142,10 +139,10 @@ router.post(
 					if (profile) {
 						errors.handle = "Handle already exists";
 						res.status(400).json(errors);
+					}else{
+						//create the profile
+						new Profile(profileFields).save().then(profile => res.json(profile));
 					}
-
-					//create the profile
-					new Profile(profileFields).save().then(profile => res.json(profile));
 				});
 			}
 		});

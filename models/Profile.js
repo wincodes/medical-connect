@@ -11,7 +11,7 @@ const ProfileSchema = new Schema({
     required: true,
     max: 40
   },
-  hospital: {
+  workPlace: {
     type: String
   },
   website: {
@@ -20,7 +20,7 @@ const ProfileSchema = new Schema({
   location: {
     type: String
   },
-  role: {
+  status: {
     type: [String],
     required: true
   },

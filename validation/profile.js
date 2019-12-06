@@ -4,8 +4,8 @@ const isEmpty = require("./is-empty");
 module.exports = validateProfileInput = data => {
   let errors = {};
 
-  data.handle = isEmpty(data.handle) ? "" : data.handle;
-  data.role = isEmpty(data.role) ? "" : data.role;
+  data. andle = isEmpty(data.handle) ? "" : data.handle;
+  data.status = isEmpty(data.status) ? "" : data.status;
 
   if(!Validator.isLength(data.handle, { min:2, max: 40})){
     errors.handle = 'Handle Needs to be Betweeen 2 and 40 characters'
@@ -15,8 +15,8 @@ module.exports = validateProfileInput = data => {
     errors.handle = 'Handle is Required'
   }
 
-  if(Validator.isEmpty(data.role)){
-    errors.role = 'Role is Required'
+  if(Validator.isEmpty(data.status)){
+    errors.status = 'Status is Required'
   }
 
   if(!isEmpty(data.website)){
