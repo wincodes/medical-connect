@@ -21,7 +21,7 @@ const ProfileSchema = new Schema({
     type: String
   },
   status: {
-    type: [String],
+    type: String,
     required: true
   },
   experience: [
