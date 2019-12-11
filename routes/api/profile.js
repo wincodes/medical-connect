@@ -65,12 +65,13 @@ router.get("/handle/:handle", (req, res) => {
 				return res.status(404).json(errors);
 			}
 			res.json(profile);
-		})(err => {
+		})
+		.catch(err => {
 		console.log(err);
 		return res
 			.status(404)
 			.json({ profile: "An Error occurred please try again" });
-	});
+		});
 });
 
 // @route POST api/profile/user/:user_id
