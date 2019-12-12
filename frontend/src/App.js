@@ -20,6 +20,8 @@ import AddExperience from './components/profile/AddExperience'
 import AddEducation from './components/profile/AddEducation'
 import Profiles from './components/profile/Profiles'
 import Profile from './components/profile/Profile'
+import Posts from './components/posts/Post'
+import Post from './components/post/Post'
 
 if (localStorage.jwtToken) {
 	setAuthToken(localStorage.jwtToken)
@@ -57,16 +59,46 @@ class App extends Component {
 								<PrivateRoute exact path='/dashboard' component={Dashboard} />
 							</Switch>
 							<Switch>
-								<PrivateRoute exact path='/create-profile' component={CreateProfile} />
+								<PrivateRoute
+									exact
+									path='/create-profile'
+									component={CreateProfile}
+								/>
 							</Switch>
 							<Switch>
-								<PrivateRoute exact path='/edit-profile' component={EditProfile} />
+								<PrivateRoute
+									exact
+									path='/edit-profile'
+									component={EditProfile}
+								/>
 							</Switch>
 							<Switch>
-								<PrivateRoute exact path='/add-experience' component={AddExperience} />
+								<PrivateRoute
+									exact
+									path='/add-experience'
+									component={AddExperience}
+								/>
 							</Switch>
 							<Switch>
-								<PrivateRoute exact path='/add-education' component={AddEducation} />
+								<PrivateRoute
+									exact
+									path='/add-education'
+									component={AddEducation}
+								/>
+							</Switch>
+							<Switch>
+								<PrivateRoute
+									exact
+									path='/feed'
+									component={Posts}
+								/>
+							</Switch>
+							<Switch>
+								<PrivateRoute
+									exact
+									path='/post/:id'
+									component={Post}
+								/>
 							</Switch>
 						</div>
 						<Footer />
