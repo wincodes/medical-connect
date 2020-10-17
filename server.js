@@ -43,6 +43,18 @@ mongoose
 //add passport middleware
 app.use(passport.initialize())
 
+
+app.post('/api/v1/tms/notify', (req, res) => {
+	console.log(req.body);
+	res.json({
+		status: 'success',
+		responseCode: "00",
+		data: {
+			message: 'Notification Received'
+		}
+	});
+});
+
 //routes
 app.use('/api/users', users)
 app.use('/api/profile', profile)
